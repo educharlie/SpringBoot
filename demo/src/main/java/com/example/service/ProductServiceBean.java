@@ -3,6 +3,9 @@ package com.example.service;
 import com.example.model.Product;
 import com.example.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,20 +22,34 @@ public class ProductServiceBean implements ProductService {
     }
 
     @Override
+    @Cacheable(
+            value = "products",
+            key = "#id"
+    )
     public Product findOne(long id) {
         return productRepository.findOne(id);
     }
 
     @Override
+    @CachePut(
+            value = "products",
+            key = "#result.id"
+    )
     public Product create(Product product) {
-        if (product.getId() != null)
-        {
+        if (product.getId() != null) {
             return  null;
         }
-        return productRepository.save(product);
+
+        Product savedProduct = productRepository.save(product);
+
+        return savedProduct;
     }
 
     @Override
+    @CachePut(
+            value = "products",
+            key = "#product.id"
+    )
     public Product update(Product product) {
 
         Product productToUpdate = findOne(product.getId());
@@ -44,8 +61,21 @@ public class ProductServiceBean implements ProductService {
     }
 
     @Override
+    @CacheEvict(
+            value = "products",
+            key = "#id"
+    )
     public void delete(Long id) {
         productRepository.delete(id);
+    }
+
+    @Override
+    @CacheEvict(
+            value = "products",
+            allEntries = true
+    )
+    public void evitCache(){
+
     }
 }
 
