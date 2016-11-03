@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 
 
 @RestController
-public class ProductController {
+public class ProductController extends BaseController{
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -95,7 +95,7 @@ public class ProductController {
     }
 
     @RequestMapping(
-            value = "/api/greetings/{id}/send",
+            value = "/api/products/{id}/send",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> sendProduct(@PathVariable("id") Long id,
