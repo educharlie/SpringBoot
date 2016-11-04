@@ -4,8 +4,7 @@ package com.example.web.api;
 import com.example.model.Product;
 import com.example.service.EmailService;
 import com.example.service.ProductServiceBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,7 +18,7 @@ import java.util.concurrent.Future;
 @RestController
 public class ProductController extends BaseController{
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     private ProductServiceBean productServiceBean;
