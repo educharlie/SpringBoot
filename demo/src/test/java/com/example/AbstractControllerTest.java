@@ -14,7 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.io.IOException;
 
 @WebAppConfiguration
-public class AbstractControllerTest extends AbstractTest{
+public abstract class AbstractControllerTest extends AbstractTest{
 
     protected MockMvc mockMvc;
 
